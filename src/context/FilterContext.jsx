@@ -1,3 +1,4 @@
+// In src/context/FilterContext.jsx
 import { createContext, useState, useContext, useCallback } from 'react';
 
 const FilterContext = createContext();
@@ -12,28 +13,37 @@ export const useFilter = () => {
 
 export const FilterProvider = ({ children }) => {
   const [category, setCategory] = useState('all');
-  const [priceRange, setPriceRange] = useState(1000);
+  const [priceRange, setPriceRange] = useState([0, 1000]);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('default');
+  const [showOutOfStock, setShowOutOfStock] = useState(true);
+  const [minRating, setMinRating] = useState(0);
 
   const clearFilters = useCallback(() => {
     setCategory('all');
-    setPriceRange(1000);
+    setPriceRange([0, 1000]);
     setSearchQuery('');
     setSortBy('default');
+    setShowOutOfStock(true);
+    setMinRating(0);
   }, []);
 
   const value = {
     filters: {
       category,
-      maxPrice: priceRange,
+      minPrice: priceRange[0],
+      maxPrice: priceRange[1],
       search: searchQuery,
-      sort: sortBy
+      sort: sortBy,
+      showOutOfStock,
+      minRating
     },
     setCategory,
     setPriceRange,
     setSearchQuery,
     setSortBy,
+    setShowOutOfStock,
+    setMinRating,
     clearFilters
   };
 
