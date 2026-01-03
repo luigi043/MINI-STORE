@@ -190,7 +190,7 @@ For questions or feedback, feel free to reach out:
 
 - **GitHub**: [@luigi043](https://github.com/luigi043)
 - **Portfolio**: [luigi043](https://https://luigi043.github.io/portfolio/)
-- **LinkedIn**: [Your LinkedIn](https://linkedin.com/in/yourprofile)
+- **LinkedIn**: [luizfehlberg](https://www.linkedin.com/in/luizfehlberg/)
 
 ---
 
