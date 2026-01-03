@@ -1,0 +1,291 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.breadcrumb {
+  margin-bottom: 30px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.breadcrumbLink {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.breadcrumbLink:hover {
+  text-decoration: underline;
+}
+
+.breadcrumbSeparator {
+  margin: 0 10px;
+}
+
+.breadcrumbCurrent {
+  color: #333;
+  font-weight: 500;
+}
+
+.productDetail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  margin-bottom: 60px;
+}
+
+.imageSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mainImage {
+  background: #f8f9fa;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.productName {
+  margin: 0;
+  font-size: 2rem;
+  color: #333;
+}
+
+.productMeta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.category {
+  background: #f0f7ff;
+  color: #007bff;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stars {
+  color: #ffc107;
+  font-size: 1.2rem;
+}
+
+.reviews {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.priceSection {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.originalPrice {
+  font-size: 1.2rem;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.description {
+  line-height: 1.6;
+  color: #555;
+  margin: 10px 0;
+}
+
+.optionSection {
+  margin-top: 20px;
+}
+
+.optionTitle {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.optionButton {
+  padding: 8px 16px;
+  border: 2px solid #ddd;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.optionButton:hover {
+  border-color: #007bff;
+}
+
+.colorOption {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.colorOption:hover {
+  transform: scale(1.1);
+  border-color: #007bff;
+}
+
+.actionSection {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.addToCartButton {
+  padding: 15px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.addToCartButton:hover:not(.disabled) {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+.addToCartButton.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.wishlistButton {
+  padding: 15px;
+  background: white;
+  color: #333;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: border-color 0.2s;
+}
+
+.wishlistButton:hover {
+  border-color: #007bff;
+}
+
+.wishlistButton svg {
+  width: 20px;
+  height: 20px;
+  fill: #666;
+}
+
+.detailsSection {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.detailsTitle {
+  margin: 0 0 15px 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.detailsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #666;
+  line-height: 1.8;
+}
+
+.detailsList li {
+  margin-bottom: 5px;
+}
+
+.relatedSection {
+  margin-top: 60px;
+}
+
+.relatedTitle {
+  margin: 0 0 30px 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.relatedGrid {
+  display: grid;
+  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+@media (max-width: 992px) {
+  .productDetail {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .mainImage {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+  
+  .productName {
+    font-size: 1.6rem;
+  }
+  
+  .price {
+    font-size: 1.5rem;
+  }
+  
+  .relatedGrid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}

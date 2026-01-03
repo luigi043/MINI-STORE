@@ -1,0 +1,74 @@
+.grid {
+  display: grid;
+  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+.content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title,
+.category,
+.rating,
+.price,
+.button {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+.title {
+  height: 20px;
+  width: 70%;
+}
+
+.category {
+  height: 16px;
+  width: 40%;
+}
+
+.rating {
+  height: 16px;
+  width: 50%;
+}
+
+.price {
+  height: 24px;
+  width: 30%;
+}
+
+.button {
+  height: 40px;
+  width: 100%;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
