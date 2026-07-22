@@ -2,7 +2,15 @@
 
 MINI-STORE is a responsive React e-commerce catalog built as a portfolio project. It provides a realistic browsing experience with mock product data and simulated service behavior; it does not process payments or store customer data.
 
-![MINI-STORE catalog screenshot](./image.png)
+## Screenshots
+
+### Desktop catalog
+
+![MINI-STORE desktop catalog](./public/screenshots/catalog-desktop.png)
+
+### Mobile catalog
+
+![MINI-STORE mobile catalog](./public/screenshots/catalog-mobile.png)
 
 ## Status
 
