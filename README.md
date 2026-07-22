@@ -1,204 +1,121 @@
-# 📦 Mini Store - React Frontend Demo
+# MINI-STORE
 
-![alt text](image.png)
-A realistic e-commerce store frontend built with React, featuring a complete product catalog with filters, search, and detailed product pages. This is a **portfolio-ready project** demonstrating modern React patterns, responsive design, and real-world UX concerns.
+MINI-STORE is a responsive React e-commerce catalog built as a portfolio project. It provides a realistic browsing experience with mock product data and simulated service behavior; it does not process payments or store customer data.
 
-![React](https://img.shields.io/badge/React-18.2.0-blue)
-![Vite](https://img.shields.io/badge/Vite-4.4.5-purple)
-![React Router](https://img.shields.io/badge/React_Router-6.15.0-red)
+![MINI-STORE catalog screenshot](./image.png)
 
-## 🚀 Live Demo
+## Status
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/luigi043/mini-store)
+This is a frontend-only demonstration. Product data is bundled with the application, and the product service is deliberately shaped so it can later be replaced with a REST, Supabase, Firebase, or headless-commerce implementation.
 
-## ✨ Features
+## Features
 
-### 🛍️ Core Features
-- **Product Grid**: Responsive product listing with card layout
-- **Product Details**: Comprehensive product pages with images and specifications
-- **Smart Filtering**: Category, price range, and search filters
-- **Real-time Search**: Debounced search with instant results
-- **Sorting**: Multiple sorting options (price, rating, name)
+- Browse a responsive product catalog.
+- Search products with debounced input.
+- Filter by category and maximum price.
+- Sort by price, rating, name, and review count.
+- View product details, stock availability, and related products.
+- See loading, empty, and retryable error states.
+- Cancel stale product requests when catalog filters or routes change.
+- Run catalog filtering and sorting tests in Vitest.
 
-### 🎨 UX Excellence
-- **Loading States**: Skeleton loaders for smooth perceived performance
-- **Error Handling**: Graceful error states with retry functionality
-- **Responsive Design**: Mobile-first approach with breakpoints
-- **Accessibility**: ARIA labels, keyboard navigation, semantic HTML
-- **Performance**: Lazy loading images, optimized bundles
+## Technology
 
-### 🔧 Technical Highlights
-- **State Management**: Context API for global filters
-- **Custom Hooks**: Reusable logic for data fetching
-- **Fake API**: Simulated API with delays and errors
-- **CSS Modules**: Scoped styling with CSS Modules
-- **Code Organization**: Modular, reusable components
+- React 19
+- React Router 7
+- Rolldown Vite 7
+- JavaScript and JSX
+- CSS Modules
+- Context API for catalog filters
+- Vitest for unit tests
+- ESLint and Prettier for code quality
 
-## 📁 Project Structure
+## Architecture
 
-```
-mini-store/
-├── src/
-│   ├── components/          # Reusable UI components
-│   │   ├── ProductCard/     # Product display card
-│   │   ├── Header/          # Navigation header
-│   │   ├── SearchBar/       # Search functionality
-│   │   ├── FilterPanel/     # Filter controls
-│   │   ├── Skeleton/        # Loading skeletons
-│   │   ├── Layout/          # Main layout wrapper
-│   │   ├── EmptyState/      # Empty results UI
-│   │   └── ErrorMessage/    # Error display components
-│   │
-│   ├── pages/               # Route-based pages
-│   │   ├── Home/           # Product listing page
-│   │   ├── ProductDetail/  # Single product page
-│   │   └── NotFound/       # 404 error page
-│   │
-│   ├── context/            # React Context providers
-│   │   └── FilterContext.jsx
-│   │
-│   ├── hooks/              # Custom React hooks
-│   │   └── useProducts.js
-│   │
-│   ├── utils/              # Utility functions
-│   │   └── fakeApi.js
-│   │
-│   ├── data/               # Mock data
-│   │   └── products.js
-│   │
-│   └── assets/             # Static assets
-│       └── images/
+```text
+src/
+  components/           Reusable presentational components
+  context/              Filter provider and context definition
+  data/                 Bundled mock product data
+  features/products/    Catalog rules, tests, and product service
+  hooks/                Reusable React hooks
+  pages/                Route-level catalog, detail, and 404 screens
 ```
 
-##  Tech Stack
+Pages use `productService` rather than importing the mock data directly. Catalog filtering and sorting are pure functions in `src/features/products/catalog.js`, which makes the current mock implementation replaceable without changing the UI.
 
-- **React 18** - UI library
-- **Vite** - Build tool & dev server
-- **React Router 6** - Client-side routing
-- **CSS Modules** - Scoped styling
-- **Context API** - State management
-
-##  Getting Started
+## Getting started
 
 ### Prerequisites
-- Node.js 16+ 
-- npm or yarn
 
-### Installation
+- Node.js 22 or later
+- npm 10 or later
 
-1. **Clone and setup**
+### Install and run
+
 ```bash
-# Create project
-npm create vite@latest mini-store -- --template react
-cd mini-store
-
-# Install dependencies
-npm install react-router-dom
-
-# Start development server
+git clone https://github.com/luigi043/MINI-STORE.git
+cd MINI-STORE
+npm install
 npm run dev
 ```
 
-2. **Quick setup (one command)**
-```bash
-npm create vite@latest mini-store -- --template react && cd mini-store && npm install react-router-dom && npm run dev
-```
+Open the URL printed by Vite (normally `http://localhost:3000`).
 
-### Available Scripts
+## Environment variables
 
-```bash
-# Start development server
-npm run dev
+Copy `.env.example` to `.env.local` to configure local development. Do not commit `.env` files.
 
-# Build for production
-npm run build
+| Variable                     | Purpose                                                                             | Default |
+| ---------------------------- | ----------------------------------------------------------------------------------- | ------- |
+| `VITE_ENABLE_MOCK_API_ERROR` | Simulates a product-service failure in development so the retry UI can be verified. | `false` |
 
-# Preview production build
-npm run preview
+## Scripts
 
-# Format code with Prettier
-npm run format
+| Command                 | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `npm run dev`           | Start the Vite development server.            |
+| `npm run build`         | Create a production build in `dist/`.         |
+| `npm run preview`       | Serve the production build locally.           |
+| `npm run lint`          | Lint application source files.                |
+| `npm run test:run`      | Run the Vitest suite once.                    |
+| `npm run test:coverage` | Run tests with V8 coverage.                   |
+| `npm run check`         | Run linting, tests, and the production build. |
+| `npm run format`        | Format source files with Prettier.            |
 
-# Lint code
-npm run lint
-```
+## Quality and accessibility
 
-## 🔗 Useful Links
+The project includes visible keyboard focus styling, semantic route content, labeled search and filter controls, and loading/empty/error feedback. The CI workflow runs `npm ci` and `npm run check` for pushes and pull requests to `main`.
 
-- [React Documentation](https://reactjs.org/docs/getting-started.html)
-- [Vite Documentation](https://vitejs.dev/guide/)
-- [React Router Documentation](https://reactrouter.com/en/main)
-- [CSS Modules](https://github.com/css-modules/css-modules)
+No formal Lighthouse or assistive-technology audit has been completed yet. Accessibility work still needed includes dialog focus management for future cart/checkout UI, comprehensive heading review, and verification against WCAG 2.2 AA.
 
-## 🚀 Deployment
+## Deployment
 
-### Deploy to Vercel (Recommended)
+The app can be deployed to Vercel or Netlify as a static Vite site:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/luigi043/mini-store)
+1. Import this repository in the provider dashboard.
+2. Use `npm run build` as the build command.
+3. Publish the `dist` directory.
+4. Add any `VITE_*` variables in the provider's environment settings.
 
-```bash
-# Install Vercel CLI
-npm i -g vercel
+There is no live demo configured in this repository at present.
 
-# Deploy
-vercel
-```
+## Current limitations
 
-### Deploy to Netlify
+- Product data and availability are mock data.
+- Cart and wishlist controls are not implemented yet.
+- Checkout, authentication, account, and admin features are not implemented.
+- No backend, payment processing, or real customer data exists.
+- Product images are third-party remote URLs and should be moved to a managed image service before a production launch.
 
-```bash
-# Build the project
-npm run build
+## Roadmap
 
-# Deploy the dist folder to Netlify
-```
+1. Add persistent cart and wishlist state with stock validation.
+2. Add a clearly labeled demonstration checkout and account screens.
+3. Add route-level loading/error boundaries and accessibility verification.
+4. Add an admin demonstration area using mock repositories.
+5. Introduce a real API, authentication, authorization, and payment provider only when the project scope requires them.
 
-### Deploy to GitHub Pages
+## License and author
 
-```bash
-# Install gh-pages
-npm install --save-dev gh-pages
-
-# Add to package.json
-"homepage": "https://luigi043.github.io/mini-store",
-"scripts": {
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d dist"
-}
-
-# Deploy
-npm run deploy
-```
-
-## 🎯 Learning Outcomes
-
-By building this project, you'll master:
-
-1. **React Fundamentals**: Components, props, state, hooks
-2. **Routing**: Dynamic routes, nested routes, 404 handling
-3. **State Management**: Context API, custom hooks
-4. **Performance**: Code splitting, lazy loading, debouncing
-5. **UX Patterns**: Loading states, error boundaries, empty states
-6. **Responsive Design**: CSS Grid, Flexbox, media queries
-7. **Build Tools**: Vite configuration, production builds
-
----
-
-##  Contact
-
-For questions or feedback, feel free to reach out:
-
-- **GitHub**: [@luigi043](https://github.com/luigi043)
-- **Portfolio**: [luigi043](https://https://luigi043.github.io/portfolio/)
-- **LinkedIn**: [luizfehlberg](https://www.linkedin.com/in/luizfehlberg/)
-
----
-
-**⭐ If you find this project helpful, please give it a star!**
-
-## Quick Deploy Links
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/luigi043/mini-store)
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/luigi043/mini-store)
-
----
+No license has been selected yet. Contact [Luiz Morais](https://github.com/luigi043) for portfolio or collaboration enquiries.
