@@ -1,6 +1,6 @@
 // Update src/hooks/useProducts.js
-import { useState, useEffect, useCallback } from 'react';
-import { fakeApi } from '../utils/fakeApi';
+import { useCallback, useEffect, useState } from 'react';
+import { productService } from '../features/products/productService';
 
 export const useProducts = (filters = {}) => {
   const [products, setProducts] = useState([]);
@@ -8,42 +8,28 @@ export const useProducts = (filters = {}) => {
   const [error, setError] = useState(null);
   const [stats, setStats] = useState({ count: 0, total: 0 });
 
-  const fetchProducts = useCallback(async () => {
+  const fetchProducts = useCallback(async (signal) => {
     setLoading(true);
     setError(null);
     
     try {
-      const result = await fakeApi.getProducts(filters);
+      const result = await productService.getProducts(filters, { signal });
       setProducts(result.data);
-      setStats({ 
-        count: result.data.length, 
-        total: result.meta?.total || result.data.length 
-      });
+      setStats({ count: result.data.length, total: result.total });
     } catch (err) {
-      console.error('API Error:', err);
-      // Fallback to local data if API fails
-      const { products } = await import('../data/products');
-      const filteredProducts = products.filter(product => {
-        const matchesCategory = filters.category === 'all' || product.category === filters.category;
-        const matchesPrice = product.price <= (filters.maxPrice || 1000);
-        const matchesSearch = !filters.search || 
-          product.name.toLowerCase().includes(filters.search.toLowerCase()) ||
-          (product.description && product.description.toLowerCase().includes(filters.search.toLowerCase()));
-        
-        return matchesCategory && matchesPrice && matchesSearch;
-      });
-      
-      setProducts(filteredProducts);
-      setStats({ count: filteredProducts.length, total: products.length });
-      setError('Using offline data. Some features may be limited.');
+      if (err.name !== 'AbortError') {
+        setError(err.message || 'Unable to load products. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
   }, [filters]);
 
   useEffect(() => {
-    fetchProducts();
+    const controller = new AbortController();
+    fetchProducts(controller.signal);
+    return () => controller.abort();
   }, [fetchProducts]);
 
-  return { products, loading, error, stats, refetch: fetchProducts };
+  return { products, loading, error, stats, refetch: () => fetchProducts() };
 };

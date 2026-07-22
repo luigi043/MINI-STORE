@@ -13,7 +13,6 @@ const ProductDetail = () => {
   const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(0);
 
   useEffect(() => {
     const fetchProduct = async () => {

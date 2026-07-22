@@ -1,4 +1,4 @@
-import { useFilter } from '../../context/FilterContext';
+import { useFilter } from '../../hooks/useFilter';
 import { categories } from '../../data/products';
 import styles from './FilterPanel.module.css';
 
@@ -6,7 +6,8 @@ const FilterPanel = () => {
   const { 
     filters, 
     setCategory, 
-    setPriceRange, 
+    setMaxPrice: setPriceRange,
+    setSearchQuery,
     setSortBy,
     clearFilters 
   } = useFilter();
@@ -51,7 +52,7 @@ const FilterPanel = () => {
           max="1000"
           step="10"
           value={filters.maxPrice}
-          onChange={(e) => setPriceRange(parseInt(e.target.value))}
+          onChange={(event) => setPriceRange(Number(event.target.value))}
           className={styles.priceSlider}
           aria-label="Maximum price"
         />

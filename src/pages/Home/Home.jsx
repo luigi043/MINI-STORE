@@ -1,5 +1,4 @@
-import { useMemo } from 'react';
-import { useFilter } from '../../context/FilterContext';
+import { useFilter } from '../../hooks/useFilter';
 import { useProducts } from '../../hooks/useProducts';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import ProductSkeleton from '../../components/Skeleton/ProductSkeleton';
@@ -9,29 +8,12 @@ import styles from './Home.module.css';
 
 const Home = () => {
   const { filters } = useFilter();
-  const { products, loading, error, stats } = useProducts(filters);
-
-  // Sort products based on selected sort option
-  const sortedProducts = useMemo(() => {
-    const productsCopy = [...products];
-    
-    switch (filters.sort) {
-      case 'price-asc':
-        return productsCopy.sort((a, b) => a.price - b.price);
-      case 'price-desc':
-        return productsCopy.sort((a, b) => b.price - a.price);
-      case 'rating':
-        return productsCopy.sort((a, b) => b.rating - a.rating);
-      case 'name':
-        return productsCopy.sort((a, b) => a.name.localeCompare(b.name));
-      default:
-        return productsCopy;
-    }
-  }, [products, filters.sort]);
+  const { products, loading, error, stats, refetch } = useProducts(filters);
+  const { clearFilters } = useFilter();
 
   // Handle different states
   if (error) {
-    return <ErrorMessage message={error} onRetry={() => window.location.reload()} />;
+    return <ErrorMessage message={error} onRetry={refetch} />;
   }
 
   if (loading) {
@@ -42,13 +24,13 @@ const Home = () => {
     );
   }
 
-  if (sortedProducts.length === 0) {
+  if (products.length === 0) {
     return (
       <EmptyState
         title="No products found"
         message="Try adjusting your filters or search term"
         actionText="Clear Filters"
-        onAction={() => window.location.reload()}
+        onAction={clearFilters}
       />
     );
   }
@@ -58,12 +40,12 @@ const Home = () => {
       <div className={styles.header}>
         <h1 className={styles.title}>Products</h1>
         <div className={styles.resultsInfo}>
-          Showing {sortedProducts.length} of {stats.total} products
+          Showing {products.length} of {stats.total} products
         </div>
       </div>
       
       <div className={styles.productsGrid}>
-        {sortedProducts.map((product) => (
+        {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>

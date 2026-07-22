@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { fakeApi } from '../../utils/fakeApi';
+import { productService } from '../../features/products/productService';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import Skeleton from '../../components/Skeleton/ProductSkeleton';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
@@ -13,19 +13,22 @@ const ProductDetail = () => {
   const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(0);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchProduct = async () => {
       setLoading(true);
       setError(null);
       
       try {
-        const result = await fakeApi.getProductById(id);
+        const result = await productService.getProductById(id, { signal: controller.signal });
         setProduct(result.data);
         setRelated(result.related);
       } catch (err) {
-        setError(err.message);
+        if (err.name !== 'AbortError') {
+          setError(err.message || 'Unable to load this product. Please try again.');
+        }
       } finally {
         setLoading(false);
       }
@@ -34,6 +37,8 @@ const ProductDetail = () => {
     if (id) {
       fetchProduct();
     }
+
+    return () => controller.abort();
   }, [id]);
 
   const handleAddToCart = () => {

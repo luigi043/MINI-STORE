@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useFilter } from '../../context/FilterContext';
+import { useFilter } from '../../hooks/useFilter';
 import styles from './SearchBar.module.css';
 
 const SearchBar = () => {
